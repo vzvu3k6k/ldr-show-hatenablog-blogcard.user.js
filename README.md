@@ -20,6 +20,8 @@
 ## メモ
 
 - 「見たまま編集モード」のブログではdata-mce-href属性が付くらしい。
-- はてなブログ側のAtomとHTMLで、iframeタグで括られたテキストが、通常なら&amp;になるはずのところが/&(amp;){2,}/みたいな感じになることがある。多重エスケープっぽいけど発生条件は不明。
+- はてなブログ側のAtomとHTMLで、iframeタグで括られた部分の`<`, `>`が`&lt;`, `&gt;`、`&amp;lt;`, `&amp;gt;`、`&amp;amp;lt;`, `&amp;amp;gt;`のようになることがある。HTMLのサニタイズが何度も適用されているようだが、発生条件は不明。
   - 例: http://anemoneko.hatenablog.com/entry/2014/10/22/132859
     - `<p><iframe style="width: 100%; height: 155px; max-width: 500px; margin: 10px 0px;" title="金曜ドラマ『Nのために』" src="http://hatenablog.com/embed?url=http%3A%2F%2Fwww.tbs.co.jp%2FNnotameni%2F" frameborder="0" scrolling="no">&amp;amp;amp;amp;amp;lt;a href="http://www.tbs.co.jp/Nnotameni/" data-mce-href="http://www.tbs.co.jp/Nnotameni/"&amp;amp;amp;amp;amp;gt;金曜ドラマ『Nのために』&amp;amp;amp;amp;amp;lt;/a&amp;amp;amp;amp;amp;gt;</iframe><br /> <a href="http://www.tbs.co.jp/Nnotameni/">金曜ドラマ「Nのために」｜TBSテレビ</a></p>`
+  - iframeの中身がエスケープされていない例: http://zuisho.hatenadiary.jp/entry/2014/10/28/004924
+    - `<iframe style="width: 100%; height: 190px; max-width: 500px; margin: 10px 0px;" title="iPhoneとiPadとpomeraで書けるようになる算段（感化されて目標立てちゃう感じ） - 世界は称賛に値する" src="http://meltylove.hatenadiary.com/embed/iPhoneiPadpomeradekaku" frameborder="0" scrolling="no"><a href="http://meltylove.hatenadiary.com/entry/iPhoneiPadpomeradekaku" data-mce-href="http://meltylove.hatenadiary.com/entry/iPhoneiPadpomeradekaku">iPhoneとiPadとpomeraで書けるようになる算段（感化されて目標立てちゃう感じ） - 世界は称賛に値する</a></iframe>`
