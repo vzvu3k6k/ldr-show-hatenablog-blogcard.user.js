@@ -31,7 +31,7 @@ location.href = 'javascript: void (' + function(){
     feed.items.forEach(function(item){
       /* item.__before_hbcard_body = item.body; */
       item.body = item.body.replace(
-          /&(?:amp;)*lt;a href="(https?:\/\/[^"]+)"(?: data-mce-href="\1")?&(?:amp;)*gt;(.+?)&(?:amp;)*lt;\/a&(?:amp;)*gt;/g,
+          /&(?:amp;)*lt;a href="(https?:\/\/[^"]+)"(?: data-mce-href="\1")?&(?:amp;)*gt;([\S\s]+?)&(?:amp;)*lt;\/a&(?:amp;)*gt;/g,
         iframe
       );
     });
