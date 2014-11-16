@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           LDR: はてなブログのブログカードをLDRで表示する
 // @description    ブログカードらしきものをiframeに置換する
-// @version        1.1
+// @version        1.2
 // @author         vzvu3k6k
 // @match          http://reader.livedoor.com/reader/
 // @namespace      http://vzvu3k6k.tk/
