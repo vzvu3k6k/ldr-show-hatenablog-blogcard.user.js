@@ -1,4 +1,4 @@
-[はてなブログの「ブログカード」](http://staff.hatenablog.com/entry/2014/09/05/143600)がLivedoor Reader（LDR）できれいに表示されない問題（[例](https://twitter.com/azu_re/status/522987874090627072)）を適当に解決するユーザースクリプト。
+[はてなブログの「ブログカード」](http://staff.hatenablog.com/entry/2014/09/05/143600)がLive Dwango Reader（LDR）できれいに表示されない問題（[例](https://twitter.com/azu_re/status/522987874090627072)）を適当に解決するユーザースクリプト。
 
 ## 原因
 
