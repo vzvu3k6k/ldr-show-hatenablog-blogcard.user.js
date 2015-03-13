@@ -1,8 +1,32 @@
-[はてなブログの「ブログカード」](http://staff.hatenablog.com/entry/2014/09/05/143600)がLive Dwango Reader（LDR）できれいに表示されない問題（[例](https://twitter.com/azu_re/status/522987874090627072)）を適当に解決するユーザースクリプト。
+[はてなブログの「ブログカード」](http://staff.hatenablog.com/entry/2014/09/05/143600)がLive Dwango Reader（LDR）で`<a href="...">...</a>`のように表示される問題を適当に解決するユーザースクリプト。
 
 ## 原因
 
-ブログカードはiframeで実装されているが、LDRはフィード内のiframeを除去して、その中身をテキストとして表示するため、ブログカードが`<a href="...">...</a>`のように表示される。
+通常、ブログカードは以下のようにiframeタグの中にaタグが含まれている。
+
+```html
+<iframe class="embed-card embed-blogcard" style="width: 100%; height: 190px; max-width: 500px; margin: 10px 0px;" title="ブログを作るにあたって考えたこと - 人生を豊かにする読書ブログ" src="http://book-life.hatenablog.com/embed/2015/02/19/204509" frameborder="0" scrolling="no"><a href="http://book-life.hatenablog.com/entry/2015/02/19/204509" data-mce-href="http://book-life.hatenablog.com/entry/2015/02/19/204509">ブログを作るにあたって考えたこと - 人生を豊かにする読書ブログ</a></iframe>
+```
+
+引用元: <http://book-life.hatenablog.com/entry/2015/03/14/004711>
+
+はてなブログのフィードではiframeタグの中身だけが出力されるので、上記のブログカードは
+
+```html
+<a href="http://book-life.hatenablog.com/entry/2015/02/19/204509" data-mce-href="http://book-life.hatenablog.com/entry/2015/02/19/204509">ブログを作るにあたって考えたこと - 人生を豊かにする読書ブログ</a>
+```
+
+というリンクになる。
+
+しかし、まれにiframeタグの中のaタグがHTMLエスケープされていることがある。
+
+```html
+<iframe class="embed-card embed-blogcard" style="width: 100%; height: 190px; max-width: 500px; margin: 10px 0px;" title="ミニマリズムとは、やせ我慢である - 計画的無計画" src="http://noplan.hatenablog.jp/embed/2015/02/11/225505" frameborder="0" scrolling="no">&lt;a href="http://noplan.hatenablog.jp/entry/2015/02/11/225505" data-mce-href="http://noplan.hatenablog.jp/entry/2015/02/11/225505"&gt;ミニマリズムとは、やせ我慢である - 計画的無計画&lt;/a&gt;</iframe></p>
+```
+
+引用元: <http://noplan.hatenablog.jp/entry/2015/03/10/201224>
+
+この場合、LDRではブログカードが`<a href="...">...</a>`のように表示される。
 
 ## 対策
 
@@ -19,9 +43,6 @@
 
 ## メモ
 
-- 「見たまま編集モード」のブログではdata-mce-href属性が付くらしい。
-- はてなブログ側のAtomとHTMLで、iframeタグで括られた部分の`<`, `>`が`&lt;`, `&gt;`、`&amp;lt;`, `&amp;gt;`、`&amp;amp;lt;`, `&amp;amp;gt;`のようになることがある。HTMLのサニタイズが何度も適用されているようだが、発生条件は不明。
+- ブログカードのiframe内のエスケープは複数回適用されることもあるらしく、`<`, `>`が`&lt;`, `&gt;`、`&amp;lt;`, `&amp;gt;`、`&amp;amp;lt;`, `&amp;amp;gt;`のようになる場合もある。
   - 例: http://anemoneko.hatenablog.com/entry/2014/10/22/132859
     - `<p><iframe style="width: 100%; height: 155px; max-width: 500px; margin: 10px 0px;" title="金曜ドラマ『Nのために』" src="http://hatenablog.com/embed?url=http%3A%2F%2Fwww.tbs.co.jp%2FNnotameni%2F" frameborder="0" scrolling="no">&amp;amp;amp;amp;amp;lt;a href="http://www.tbs.co.jp/Nnotameni/" data-mce-href="http://www.tbs.co.jp/Nnotameni/"&amp;amp;amp;amp;amp;gt;金曜ドラマ『Nのために』&amp;amp;amp;amp;amp;lt;/a&amp;amp;amp;amp;amp;gt;</iframe><br /> <a href="http://www.tbs.co.jp/Nnotameni/">金曜ドラマ「Nのために」｜TBSテレビ</a></p>`
-  - iframeの中身がエスケープされていない例: http://zuisho.hatenadiary.jp/entry/2014/10/28/004924
-    - `<iframe style="width: 100%; height: 190px; max-width: 500px; margin: 10px 0px;" title="iPhoneとiPadとpomeraで書けるようになる算段（感化されて目標立てちゃう感じ） - 世界は称賛に値する" src="http://meltylove.hatenadiary.com/embed/iPhoneiPadpomeradekaku" frameborder="0" scrolling="no"><a href="http://meltylove.hatenadiary.com/entry/iPhoneiPadpomeradekaku" data-mce-href="http://meltylove.hatenadiary.com/entry/iPhoneiPadpomeradekaku">iPhoneとiPadとpomeraで書けるようになる算段（感化されて目標立てちゃう感じ） - 世界は称賛に値する</a></iframe>`
